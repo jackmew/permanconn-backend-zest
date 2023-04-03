@@ -93,6 +93,7 @@ export const limitAndSkipProducts = async (req: Request, res: Response) => {
         const limit = req.query.limit;
         const skip = req.query.skip;
         const products = await ProductModel.find({})
+            .sort({ _id: -1 })
             .skip(parseInt(skip as string))
             .limit(parseInt(limit as string));
         const count = await ProductModel.countDocuments();
