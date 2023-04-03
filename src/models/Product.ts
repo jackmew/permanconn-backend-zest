@@ -27,6 +27,7 @@ const productSchema = new Schema<IProduct>(
         images: { type: [String], required: false },
     }
 );
+productSchema.index({ title: 'text', description: 'text' });
 
 export const ProductModel = model<IProduct>('Product', productSchema);
 

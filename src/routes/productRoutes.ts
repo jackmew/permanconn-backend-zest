@@ -1,6 +1,13 @@
 import { Router  } from 'express';
 import { ProductModel } from '../models/Product';
-import {addProduct, deleteProduct, getProducts, updateProduct} from "../controllers/productController";
+import {
+    addProduct,
+    deleteProduct,
+    getProducts,
+    limitAndSkipProducts,
+    searchProducts,
+    updateProduct
+} from "../controllers/productController";
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -19,14 +26,10 @@ router.put('/products/:id', updateProduct);
 router.delete('/products/:id', deleteProduct);
 
 // Search products
-router.get('/products/search', (req, res) => {
-    // Add your logic here
-});
+router.get('/products/search', searchProducts);
 
 // Limit and skip products
-router.get('/products', (req, res) => {
-    // Add your logic here
-});
+router.get('/products', limitAndSkipProducts);
 
 
 export default router;

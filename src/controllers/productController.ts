@@ -47,3 +47,26 @@ export const deleteProduct = async (req: Request, res: Response) => {
         handleError(res, error, 500);
     }
 }
+export const searchProducts = async (req: Request, res: Response) => {
+    try {
+        const searchQuery = req.query.q;
+        const products = await ProductModel.find({
+            $text: { $search: searchQuery as string },
+        });
+        res.json(products);
+    } catch (error) {
+        handleError(res, error, 500);
+    }
+}
+export const limitAndSkipProducts = async (req: Request, res: Response) => {
+    try {
+        const limit = req.query.limit;
+        const skip = req.query.skip;
+        const products = await ProductModel.find({})
+            .skip(parseInt(skip as string))
+            .limit(parseInt(limit as string));
+        res.json(products);
+    } catch (error) {
+        handleError(res, error, 500);
+    }
+}
