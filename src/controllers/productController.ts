@@ -17,6 +17,19 @@ import { handleError } from "../utils/httpUtils";
 //         handleError(res, error, 500)
 //     }
 // }
+export const getProduct = async (req: Request, res: Response) => {
+    console.log('getProduct', req.params.id);
+    try {
+        const product = await ProductModel.findById(req.params.id);
+        if (!product) {
+            res.status(404).json({ message: 'Product not found' });
+        } else {
+            res.json(product);
+        }
+    } catch (error) {
+        handleError(res, error, 500);
+    }
+}
 export const addProduct = async (req: Request, res: Response) => {
     try {
         const newProduct = new ProductModel(req.body)
