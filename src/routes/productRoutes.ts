@@ -1,7 +1,7 @@
 import { Router  } from 'express';
 import {
     addProduct,
-    deleteProduct,
+    deleteProduct, getProduct,
     limitAndSkipProducts,
     searchProducts,
     updateProduct
@@ -14,8 +14,9 @@ router.get('/', async (req, res) => {
 // GET all products
 // router.get('/products', getProducts);
 
+router.get('/products/:id', getProduct)
 // Add a new product
-router.post('/products/add', addProduct);
+router.post('/products', addProduct);
 
 // Update a product
 router.put('/products/:id', updateProduct);
