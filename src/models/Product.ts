@@ -1,5 +1,6 @@
 import {Document, Schema, model} from 'mongoose';
 
+
 export interface IProduct extends Document {
     title: string;
     description: string;
@@ -12,6 +13,7 @@ export interface IProduct extends Document {
     thumbnail?: string;
     images?: string[];
 }
+
 
 const productSchema = new Schema<IProduct>(
     {

@@ -1,9 +1,7 @@
 import { Router  } from 'express';
-import { ProductModel } from '../models/Product';
 import {
     addProduct,
     deleteProduct,
-    getProducts,
     limitAndSkipProducts,
     searchProducts,
     updateProduct
@@ -14,7 +12,7 @@ router.get('/', async (req, res) => {
     res.send('Hello Permanconn!');
 });
 // GET all products
-router.get('/products', getProducts);
+// router.get('/products', getProducts);
 
 // Add a new product
 router.post('/products/add', addProduct);

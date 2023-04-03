@@ -2,14 +2,21 @@ import { Request, Response } from 'express';
 import { ProductModel } from '../models/Product';
 import { handleError } from "../utils/httpUtils";
 
-export const getProducts = async (req: Request, res: Response) => {
-    try {
-        const products = await ProductModel.find({});
-        res.json(products);
-    } catch (error) {
-        handleError(res, error, 500)
-    }
-}
+// export const getProducts = async (req: Request, res: Response) => {
+//     try {
+//         const products = await ProductModel.find({});
+//         const count = await ProductModel.countDocuments();
+//         const productsResponse = {
+//             products,
+//             total: count,
+//             limit: 0,
+//             skip: 0,
+//         }
+//         res.json(productsResponse);
+//     } catch (error) {
+//         handleError(res, error, 500)
+//     }
+// }
 export const addProduct = async (req: Request, res: Response) => {
     try {
         const newProduct = new ProductModel(req.body)
@@ -53,7 +60,14 @@ export const searchProducts = async (req: Request, res: Response) => {
         const products = await ProductModel.find({
             $text: { $search: searchQuery as string },
         });
-        res.json(products);
+        const count = await ProductModel.countDocuments();
+        const productsResponse = {
+            products,
+            total: count,
+            limit: 0,
+            skip: 0,
+        }
+        res.json(productsResponse);
     } catch (error) {
         handleError(res, error, 500);
     }
@@ -65,7 +79,14 @@ export const limitAndSkipProducts = async (req: Request, res: Response) => {
         const products = await ProductModel.find({})
             .skip(parseInt(skip as string))
             .limit(parseInt(limit as string));
-        res.json(products);
+        const count = await ProductModel.countDocuments();
+        const productsResponse = {
+            products,
+            total: count,
+            limit,
+            skip,
+        }
+        res.json(productsResponse);
     } catch (error) {
         handleError(res, error, 500);
     }
