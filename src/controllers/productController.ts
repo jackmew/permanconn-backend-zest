@@ -40,12 +40,14 @@ export const addProduct = async (req: Request, res: Response) => {
     }
 }
 export const updateProduct = async (req: Request, res: Response) => {
+    console.log('updateProduct', req.params.id)
     try {
         const product = await ProductModel.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
         );
+        console.log('product', product)
         if (!product) {
             res.status(404).json({ message: 'Product not found' });
         } else {
@@ -70,6 +72,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const searchProducts = async (req: Request, res: Response) => {
     try {
         const searchQuery = req.query.q;
+        console.log('searchQuery', searchQuery)
         const products = await ProductModel.find({
             $text: { $search: searchQuery as string },
         });
