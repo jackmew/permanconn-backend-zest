@@ -3,7 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import routes from './routes';
+import productRoutes from './routes/productRoutes';
+import { basePath } from "./globals/constants";
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-app.use('/permanconn-backend-zest', routes);
+app.use(basePath, productRoutes);
 
 async function startServer() {
     try {
